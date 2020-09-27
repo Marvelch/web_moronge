@@ -2,8 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Post\PostController;
-use App\Models\Post\PostModel;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -19,13 +18,3 @@ use App\Models\Post\PostModel;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-// Route::resource('/getpost',[PostController::class,'index']);
-
-// Route::POST('/postdata',[PostController::class,'store']);
-
-// Route::GET('/getpostid/{id}',[PostController::class,'show']);
-
-// Route::get('/Post', function () {
-//     return PostModel::all();
-// });

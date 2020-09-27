@@ -20,11 +20,10 @@
     <!-- Fontawesome -->
     <link rel="stylesheet" href="{{ asset('fonts/css/all.css') }}" type="text/css">
 
-    <!-- Sweetalert -->
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
     <!-- wysiwyg free editor -->
     <script src="https://cdn.tiny.cloud/1/ho3jvy0i9o6c2lq2t7t6n2igp4y5v2mqcmrrvg8xfbtccdbl/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
@@ -129,5 +128,6 @@
             @yield('content')
         </main>
     </div>
+@include('sweetalert::alert')
 </body>
 </html>

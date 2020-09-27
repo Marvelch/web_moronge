@@ -8,6 +8,8 @@ use App\Models\Post\PostModel;
 use App\Http\Resources\PostResource;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Hash;
+Use Alert;
+
 
 class PostController extends Controller
 {
@@ -71,8 +73,9 @@ class PostController extends Controller
         }
 
         $x->save();
+        Alert::success('Berhasil', 'Buat Postingan Baru Berhasil.');
 
-        // (['data' => $request]);
+        return back();
     }
 
     /**

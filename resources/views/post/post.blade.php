@@ -29,9 +29,9 @@
                             <label for="">Kategori</label>
                             <select class="custom-select" name="category">
                                 <option value="">Pilih Kategori</option>
-                                <option value="1">Pendidikan</option>
-                                <option value="2">Pengembangan</option>
-                                <option value="3">Pelatihan</option>
+                                <option value="Pendidikan">Pendidikan</option>
+                                <option value="Pengembangan">Pengembangan</option>
+                                <option value="Pelatihan">Pelatihan</option>
                             </select>
                             <small>
                                 @error('category')
@@ -122,10 +122,16 @@
     obj.innerHTML = 'Posting <i class="fas fa-thumbtack"></i>';
     }
 
-    // window.onload = () => {
-    // const myInput = document.getElementById('content');
-    // myInput.onpaste = e => e.preventDefault();
-    // }
+    function preview_image(event) 
+    {
+    var reader = new FileReader();
+    reader.onload = function()
+    {
+    var output = document.getElementById('output_image');
+    output.src = reader.result;
+    }
+    reader.readAsDataURL(event.target.files[0]);
+    }
 
   </script>
 

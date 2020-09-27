@@ -3,11 +3,6 @@
 @section('content')
 <div class="container">
     <div class="row">
-        @if(session()->get('success'))
-            <div class="alert alert-success">
-            {{ session()->get('success') }}  
-            </div>
-        @endif
          <div class="col-md-12">
 
             <div class="card shadow p-3 mb-5 bg-white rounded">
@@ -66,7 +61,7 @@
                         <div class="form-group pt-2">
                             <label for="">Foto Sampul</label>
                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="validatedCustomFile" name="img" accept="image/*" onchange="preview_image(event)">
+                                <input type="file" class="custom-file-input" id="validatedCustomFile" name="img" accept="image/*" onchange="preview_image(event)" value="{{$post->img}}">
                                 <label class="custom-file-label" for="validatedCustomFile">Pilih...</label>
                             </div>
                             <small>
@@ -98,7 +93,6 @@
     
         </div>
     </div>
-</div>
 
  <script>
         tinymce.init({

@@ -8,6 +8,7 @@ use App\Models\Post\PostModel;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Crypt;
+Use Alert;
 
 class ListPostController extends Controller
 {
@@ -84,7 +85,7 @@ class ListPostController extends Controller
          $validatedData = $request->validate([
             'title' => 'bail|required|max:255',
             'category' => 'required',
-            'img' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            // 'img' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'content' => 'required|max:1000'
          ],
             [
@@ -106,14 +107,12 @@ class ListPostController extends Controller
             $filename = time().'.'.$extension;
             $file->move('uploads',$filename);
             $x->img = $filename;
-        }else{
-            return $request;
-            $x->img = '';
         }
 
         $x->save();
+        Alert::success('Berhasil', 'Perubahan data terbaru telah tersimpan.');
 
-        return redirect('/postingan')->with('success', 'Contact updated!');
+        return redirect('postingan');
     }
 
     /**
