@@ -17,10 +17,12 @@ use RealRashid\SweetAlert\Facades\Alert;
 |
 */
 
-Route::get('/', function () {
-    Alert::success('Success Title', 'Success Message');
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     Alert::success('Success Title', 'Success Message');
+//     return view('welcome');
+// });
+
+Route::get('/',[App\Http\Controllers\WelcomeController::class, 'index']);
 
 Auth::routes();
 
