@@ -8,6 +8,7 @@ use App\Models\Post\PostModel;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Crypt;
+use App\Models\Category\CategoryModel;
 Use Alert;
 
 class ListPostController extends Controller
@@ -70,7 +71,9 @@ class ListPostController extends Controller
 
         $posts = PostModel::WHERE('id',$decrypted)->get();
 
-        return view('post.edit',['posts' => $posts]);
+        $category = CategoryModel::All();
+
+        return view('post.edit',['posts' => $posts])->with('category',$category);
     }
 
     /**

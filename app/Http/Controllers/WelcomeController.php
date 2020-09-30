@@ -4,6 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post\PostModel;
+use App\Models\Lapor\LaporModel;
+use App\Models\Jadwal\JadwalModel;
+use App\Models\User;
+use DB;
+use ArielMejiaDev\LarapexCharts\Facades\LarapexChart;
+use App\Models\Category\CategoryModel;
+use Illuminate\Pagination\Paginator;
 
 class WelcomeController extends Controller
 {
@@ -14,8 +21,9 @@ class WelcomeController extends Controller
      */
     public function index()
     {
+        $agendas = JadwalModel::orderby('created_at', 'desc')->take(3)->get();
         $postingan = PostModel::orderby('created_at', 'desc')->take(3)->get();
-        return view('welcome', ['postingan' => $postingan]);
+        return view('welcome', ['postingan' => $postingan])->with('agendas',$agendas);
     }
 
     /**
@@ -25,7 +33,7 @@ class WelcomeController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -36,7 +44,29 @@ class WelcomeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|max:40',
+            'nik' => 'min:16|max:16',
+            'phone' => 'required|max:12|min:11',
+            'report' => 'required|max:250'
+         ],
+            [
+                'nama.required' => '* Data Nama Lengkap Bermasalah !',
+                'nik.required' => '* Data NIK (Nomor Induk Kependudukan) Bermasalah !',
+                'phone.required' => '* Data No Telpon Bermasalah !',
+                'report.required' => '* Kolom laporan tidak boleh kosong dan maksimal 250 karakter huruf.'
+            ]);
+
+        $laporan = new LaporModel();
+
+         $laporan->nama = $request->input('name');
+         $laporan->nik = $request->input('nik');
+         $laporan->phone = $request->input('phone');
+         $laporan->report = $request->input('report');
+
+         $laporan->save();
+
+         return redirect('cfg_thanks');
     }
 
     /**
@@ -47,7 +77,26 @@ class WelcomeController extends Controller
      */
     public function show($id)
     {
-        //
+        $news = PostModel::WHERE('id',$id)->get();
+        $category = CategoryModel::all();
+
+        $ids = PostModel::WHERE('id',$id)->get();
+
+        foreach($ids as $idz)
+        {
+            $penulis = DB::table('users')
+                    ->join('post','users.id','=','post.users_id')
+                    ->select('name')
+                    ->where('users_id',$idz->users_id)
+                    ->get();
+        }
+
+        return view('news',['news' => $news])->with('category',$category)->with('penulis',$penulis);
+    }
+
+    public function penulis()
+    {
+        return $this->hashOne('App\Models\User','foreign_key');
     }
 
     /**
@@ -82,5 +131,24 @@ class WelcomeController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function thanks()
+    {
+        return view('reported');
+    }
+
+    public function Allnews()
+    {
+        Paginator::useBootstrap();
+
+        $news = PostModel::orderBy('created_at', 'desc')->paginate(5);
+        $penulis = DB::table('users')
+                    ->join('post','users.id','=','post.users_id')
+                    ->select('name')
+                    ->get();
+
+
+        return view('allnews',['news' => $news])->with('penulis',$penulis);
     }
 }

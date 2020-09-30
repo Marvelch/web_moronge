@@ -120,6 +120,10 @@ header .overlay {
     background-color: #00a69b;
 }
 
+.primary-font-color {
+    color: #00a69b;
+}
+
 .white-color {
     color: #fff;
 }
@@ -161,8 +165,8 @@ div[class*="box"] {
     line-height: 50px;
     height: 50px;
     text-align: center;
-    width: 250px;
     cursor: pointer;
+    width: 50%;
 }
 
 /* 
@@ -314,153 +318,74 @@ div[class*="box"] {
 
 /* Animation Manual CSS */
 
-.fb a,
-.fb:before,
-.fb {
-    background: #00a69b;
-    color: #00a69b;
-}
-.tw a,
-.tw:before,
-.tw {
-    background: #55acee;
-    color: #55acee;
-}
-.in a,
-.in:before,
-.in {
-    background: #e4405f;
-    color: #e4405f;
-}
-.gh a,
-.gh:before,
-.gh {
-    background: #333333;
-    color: #333333;
+.center-page {
+    margin: 20px auto 0 auto;
+    width: 800px;
 }
 
-ul#buttons {
-    padding: 0;
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 38%;
-    transform: translate(-50%, -50%);
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 10px;
-}
-
-ul#buttons:before {
-    font-size: 2em;
-    font-family: Arial;
-    font-weight: 300;
-    color: #4d4d4d;
-    position: absolute;
-    width: 100%;
-    text-align: center;
-    margin-top: -60px;
-}
-
-ul#buttons li {
-    width: 60px;
-    height: 60px;
-    line-height: 60px;
-    text-align: center;
-    box-sizing: border-box;
-    background: transparent;
-    border-radius: 12px;
+.circle {
     position: relative;
+    width: 80px;
+    height: 80px;
+    border: 2px solid #00a69b;
+    border-radius: 90px;
+    cursor: pointer;
     overflow: hidden;
-    transition: 0.5s;
-    box-shadow: 0px 8px 16px -6px, 0px 0px 16px -6px;
+    float: left;
+    margin-right: 20px;
 }
-
-ul#buttons li a {
+.circle:hover {
+    background: #00a69b;
+    transition: all 150ms linear;
+}
+.circle:hover .icon {
+    transition: all 200ms ease-in;
+    top: -80px;
+    font-size: 18pt;
+    color: white;
+}
+.circle:hover .text {
+    transition: all 500ms ease-out;
+    animation: icon-down 500ms;
+    top: 20px;
+}
+.circle .text {
+    position: relative;
+    top: -100px;
     display: block;
-    widows: 100%;
-    height: 100%;
-    font-size: 1.25em;
-    background: transparent;
-    transition: 0.5s;
-    animation: icon-out 0.5s forwards;
-    animation-timing-function: cubic-bezier(0.5, -0.6, 1, 1);
+    text-align: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    font-family: Helvetica;
+    font-size: 12pt;
+    font-weight: 700;
+    color: #fff;
 }
-
-ul#buttons li:before {
-    content: "";
-    width: 90px;
-    height: 90px;
+.circle .icon {
+    position: relative;
+    top: -82px;
     display: block;
-    position: absolute;
-    transform: rotate(-45deg) translate(-110%, -23px);
-    z-index: -2;
-    animation: back-out 0.5s forwards;
-    animation-timing-function: cubic-bezier(0.5, -0.6, 1, 1);
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 25px;
+    font-size: 20pt;
+    font-weight: 300;
+    color: #00a69b;
+    transition: all 250ms linear;
 }
 
-ul#buttons li:hover a {
-    animation: icon-in 0.5s forwards;
-    animation-timing-function: cubic-bezier(0, 0, 0.4, 1.6);
-}
-
-ul#buttons li:hover:before {
-    animation: back-in 0.5s forwards;
-    animation-timing-function: cubic-bezier(0, 0, 0.4, 1.6);
-}
-
-@keyframes back-in {
+@keyframes icon-down {
     0% {
-        transform: rotate(-45deg) translate(-110%, -23px);
-    }
-    80% {
-        transform: rotate(-45deg) translate(5%, -23px);
+        display: block;
+        top: -100px;
     }
     100% {
-        transform: rotate(-45deg) translate(0%, -23px);
+        top: 20px;
+        color: #fff;
     }
 }
 
-@keyframes back-out {
-    0% {
-        transform: rotate(-45deg) translate(0%, -23px);
-    }
-    20% {
-        transform: rotate(-45deg) translate(5%, -23px);
-    }
-    100% {
-        transform: rotate(-45deg) translate(-110%, -23px);
-    }
-}
-
-@keyframes icon-in {
-    0% {
-        font-size: 1.25em;
-    }
-    80% {
-        color: #fff;
-        font-size: 1.5em;
-    }
-    100% {
-        color: #fff;
-        font-size: 1.35em;
-    }
-}
-
-@keyframes icon-out {
-    0% {
-        color: #fff;
-        font-size: 1.35em;
-    }
-    20% {
-        color: #fff;
-        font-size: 1.5em;
-    }
-    100% {
-        font-size: 1.25em;
-    }
-}
+/* End CSS Anomation */
 
 .uppercase {
     text-transform: uppercase;
@@ -498,6 +423,118 @@ ul#buttons li:hover:before {
     -webkit-transition: all 0.25s cubic-bezier(0.31, -0.105, 0.43, 1.4);
     transition: all 0.25s cubic-bezier(0.31, -0.105, 0.43, 1.4);
 }
+
+/* Button custome primary button color  */
+.button-primary {
+    display: block;
+    background-color: #00a69b;
+    width: 170px;
+    height: 50px;
+    line-height: 50px;
+    margin: auto;
+    color: #fff;
+    position: relative;
+    top: 30%;
+    margin-bottom: 5%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 5px;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.3);
+    -webkit-transition: all 0.25s cubic-bezier(0.31, -0.105, 0.43, 1.4);
+    transition: all 0.25s cubic-bezier(0.31, -0.105, 0.43, 1.4);
+}
+.button-primary span,
+.button-primary .icon {
+    display: block;
+    height: 100%;
+    color: #fff;
+    text-align: center;
+    position: absolute;
+    top: 0;
+}
+.button-primary span {
+    width: 72%;
+    line-height: inherit;
+    font-size: 15px;
+    left: 0;
+    -webkit-transition: all 0.25s cubic-bezier(0.31, -0.105, 0.43, 1.4);
+    transition: all 0.25s cubic-bezier(0.31, -0.105, 0.43, 1.4);
+}
+.button-primary span:after {
+    content: "";
+    background-color: #fff;
+    width: 2px;
+    height: 70%;
+    position: absolute;
+    top: 15%;
+    right: -1px;
+}
+.button-primary .icon {
+    width: 28%;
+    right: 0;
+    -webkit-transition: all 0.25s cubic-bezier(0.31, -0.105, 0.43, 1.4);
+    transition: all 0.25s cubic-bezier(0.31, -0.105, 0.43, 1.4);
+}
+.button-primary .icon .fa {
+    font-size: 30px;
+    vertical-align: middle;
+    -webkit-transition: all 0.25s cubic-bezier(0.31, -0.105, 0.43, 1.4),
+        height 0.25s ease;
+    transition: all 0.25s cubic-bezier(0.31, -0.105, 0.43, 1.4),
+        height 0.25s ease;
+}
+.button-primary .icon .fa-angle-right {
+    height: 36px;
+    font-size: 1.33em;
+}
+.button-primary .icon .fa-angle-down {
+    display: none;
+    font-size: 1.33em;
+}
+.button-primary.success span,
+.button-primary:hover span {
+    left: -72%;
+    opacity: 0;
+}
+.button-primary.success .icon,
+.button-primary:hover .icon {
+    width: 100%;
+}
+.button-primary.success .icon .fa,
+.button-primary:hover .icon .fa {
+    font-size: 45px;
+}
+.button-primary.success {
+    background-color: #fff;
+    color: #375665;
+}
+.button-primary.success .icon .fa-angle-right {
+    font-size: 1.33em;
+    display: none;
+}
+.button-primary.success .icon .fa-angle-down {
+    font-size: 1.33em;
+    display: inline-block;
+}
+.button-primary:hover {
+    opacity: 0.9;
+}
+.button-primary:hover .icon .fa-angle-right {
+    font-size: 1.33em;
+    height: 46px;
+}
+.button-primary:active {
+    opacity: 1;
+}
+
+.web-iframe-maps {
+    width: 90%;
+}
+
+/* button edit */
 .button span,
 .button .icon {
     display: block;
@@ -630,4 +667,65 @@ ul#buttons li:hover:before {
 .ktitl:hover::after {
     width: 100%;
     border-bottom-color: #007499;
+}
+
+.cap {
+    text-transform: capitalize;
+}
+
+/* Social Media Share Button  */
+.outlineSocialShare {
+    max-width: 15rem;
+    min-width: 15rem;
+    height: 100%;
+    margin: 5rem auto;
+}
+
+.outlineSocialShare i {
+    display: inline;
+    text-align: center;
+    color: #979797 !important;
+    padding: 0 0.5rem 0.25rem 0.5rem;
+    margin: 0 0.5rem 0.25rem 0.5rem;
+    width: 7rem;
+    font-size: 1.5rem;
+    position: relative;
+    bottom: 0px;
+    transition: all 0.25s ease;
+    border-bottom: 3px solid #979797;
+    border-radius: 0%;
+}
+
+.outlineSocialShare i:hover {
+    bottom: 0.25rem;
+    border-radius: 50%;
+}
+
+.outlineSocialShare i.fa-twitter:hover {
+    color: #00cdff !important;
+    border-bottom: 3px solid #00cdff;
+}
+
+.outlineSocialShare i.fa-facebook:hover {
+    color: #305c99 !important;
+    border-bottom: 3px solid #305c99;
+}
+
+.outlineSocialShare i.fa-linkedin:hover {
+    color: #007bb6 !important;
+    border-bottom: 3px solid #007bb6;
+}
+
+/* Custome Images Size News */
+
+.img-resposive {
+    width: 100%;
+    height: 20vw;
+    object-fit: cover;
+}
+
+.img-news-resposive {
+    width: 100%;
+    height: 50vw;
+    object-fit: cover;
 }

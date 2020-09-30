@@ -37,19 +37,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <script language='javascript'>
-        function Hitung() {
-
-            var curText = document.formlaporan.laporantxtarea.value.length;
-
-            var maxText = 20;
-
-            var sisa = maxText - curText;
-
-            var isi = document.getElementById('count');
-            isi.innerHTML = sisa + ' Tersedia';
-
-        }
-
         (function() {
             var removeSuccess;
 
@@ -108,15 +95,6 @@
                     </li>
                     <li class="nav-item dropdown active">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true">
-                            Keuangan
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">Data Keuangan</a>
-                            <a class="dropdown-item" href="#">Pengelolaan</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown active">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true">
                             Layanan
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -157,7 +135,7 @@
             </div>
         </div>
     </header>
-<!-- 
+    <!-- 
     <section class="my-5">
         <div class="container">
             <div class="row">
@@ -218,13 +196,13 @@
                     <div class="card shadow-sm mb-5 bg-white rounded" style="max-width: 600px;">
                         <div class="row no-gutters">
                             <div class="col-md-5" style="background: #868e96;">
-                                <img src="{{asset('uploads/'.$posting->img)}}" class="card-img-top h-100" alt="...">
+                                <img src="{{asset('uploads/'.$posting->img)}}" class="card-img-top img-resposive" alt="...">
                             </div>
                             <div class="col-md-7">
-                                <div class="card-body welcome-primary-color">
-                                    <h5 class="card-title white-color uppercase">{{$posting->title}}</h5>
-                                    <p class="card-text white-color">{!! \Illuminate\Support\Str::limit($posting->content, 80) !!}</p>
-                                    <div class="btx btn-one">
+                                <div class="card-body">
+                                    <h5 class="card-title uppercase">{{$posting->title}}</h5>
+                                    <p class="card-text white-color">{!! \Illuminate\Support\Str::limit($posting->content, 120) !!}</p>
+                                    <div class="btx btn-one  welcome-primary-color" onclick="window.location.href='{{url('cfg_show/'.$posting->id)}}'">
                                         <span>Selengkapnya</span>
                                     </div>
                                 </div>
@@ -232,32 +210,40 @@
                         </div>
                     </div>
                     @endforeach
+                    <div class="col-md-4">
+                        <a class="button-primary welcome-primary-color" role="button" onclick="window.location.href='{{url('news')}}'">
+                            <span><small>Lihat Semua Berita</small></span>
+                            <div class="icon">
+                                <i class="fas fa-angle-right fa-lg"></i>
+                                <i class="fas fa-angle-down fa-lg"></i>
+                            </div>
+                        </a>
+                    </div>
                 </div>
-                <div class="col-sm text-center">
-                    <h3 class="my-5">INFORMASI</h3>
-                    <form>
-                        <div class="row">
-                            <div class="col-sm-12">
+                <div class="col-sm">
+                    <h3 class="my-5 text-center">INFORMASI</h3>
+                    <div class="row">
+                        @foreach($agendas as $agenda)
+                        <div class="col-md-12 pt-4">
+                            <div class="">
                                 <div class="form-group">
-                                    <h5 class="uppercase pl-5">Lomba desa moronge satu</h5>
-                                    <div class="form-group">
-                                        <span class="pl-7"><small><i class="fas fa-calendar-check"></i> 27/03/2020</small></span>
-                                        <span class="pl-1"><small><i class="far fa-clock"></i> 19.00 - 21.00</small></span>
-                                        <span class="pl-1"><small><i class="fas fa-map-marker-alt"></i> Balai Desa Moronge</small></span>
+                                    <div class="circle">
+                                        <span class="text"></span>
+                                        <span class="icon">
+                                            <i class="fas fa-calendar-check"></i>
+                                        </span>
                                     </div>
-                                    <div class="form-group">
-                                        <ul id="buttons">
-                                            <li class="fb">
-                                                <a href="#facebook" title="Facebook">
-                                                    <i class="fas fa-calendar-check"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
+                                    <div class="form-group pt-2">
+                                        <h5 class="uppercase"> {{$agenda->acara}}</h5>
+                                        <span><small><i class="fas fa-calendar-check"></i> {{ Carbon\Carbon::parse($agenda->waktu)->format('d-m-Y') }}</small></span>
+                                        <span class="pl-2"><small><i class="far fa-clock"></i> {{ Carbon\Carbon::parse($agenda->waktu)->format('H:i') }}</small></span>
+                                        <span class="pl-2"><small><i class="fas fa-map-marker-alt"></i> {{$agenda->lokasi}}</small></span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </form>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>
@@ -299,15 +285,12 @@
                 <div class="col-md-6">
                     <div class="card shadow p-3 mb-5 bg-white rounded">
                         <div class="form-group">
-                            <ul id="buttons">
-                                <li class="fb">
-                                    <a href="#facebook" title="Facebook">
-                                        <i class="fas fa-street-view"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="form-group card-layanan">
+                            <div class="circle">
+                                <span class="text"></span>
+                                <span class="icon">
+                                    <i class="fas fa-calendar-check"></i>
+                                </span>
+                            </div>
                             <p>Layanan kependudukan membantu untuk memudahkan masyarakat mendapatkan informasi dan mengurus secara mandiri keperluan administratifnya.</p>
                         </div>
                     </div>
@@ -315,15 +298,12 @@
                 <div class="col-md-6">
                     <div class="card shadow p-3 mb-5 bg-white rounded">
                         <div class="form-group">
-                            <ul id="buttons">
-                                <li class="fb">
-                                    <a href="#facebook" title="Facebook">
-                                        <i class="fas fa-map-marked-alt"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="form-group card-layanan">
+                            <div class="circle">
+                                <span class="text"></span>
+                                <span class="icon">
+                                    <i class="fas fa-calendar-check"></i>
+                                </span>
+                            </div>
                             <p>Pelayanan pendaftaran tanah, pelayanan pengukuran bidang tanah, pemeliharaan data pertanahan dan informasi mengenai layanan pertanahan lainnya.</p>
                         </div>
                     </div>
@@ -331,15 +311,12 @@
                 <div class="col-md-6">
                     <div class="card shadow p-3 mb-5 bg-white rounded">
                         <div class="form-group">
-                            <ul id="buttons">
-                                <li class="fb">
-                                    <a href="#facebook" title="Facebook">
-                                        <i class="fas fa-graduation-cap"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="form-group card-layanan">
+                            <div class="circle">
+                                <span class="text"></span>
+                                <span class="icon">
+                                    <i class="fas fa-calendar-check"></i>
+                                </span>
+                            </div>
                             <p>Layanan tentang pendidikan berisi tentang informasi pendidikan, yang menampilkan data dari tingkat pendidikan terendah hingga ke perguruan tinggi.</p>
                         </div>
                     </div>
@@ -347,15 +324,12 @@
                 <div class="col-md-6">
                     <div class="card shadow p-3 mb-5 bg-white rounded">
                         <div class="form-group">
-                            <ul id="buttons">
-                                <li class="fb">
-                                    <a href="#facebook" title="Facebook">
-                                        <i class="fas fa-id-badge"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="form-group card-layanan">
+                            <div class="circle">
+                                <span class="text"></span>
+                                <span class="icon">
+                                    <i class="fas fa-calendar-check"></i>
+                                </span>
+                            </div>
                             <p>Layanan perizinan mengakomodir berbagai jenis perizinan dengan aturan yang berbeda, alur proses yang fleksibel, agar prosesnya menjadi lebih mudah.</p>
                         </div>
                     </div>
@@ -363,90 +337,98 @@
                 <div class="col-md-6">
                     <div class="card shadow p-3 mb-5 bg-white rounded">
                         <div class="form-group">
-                            <ul id="buttons">
-                                <li class="fb">
-                                    <a href="#facebook" title="Facebook">
-                                        <i class="fas fa-heartbeat"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="form-group card-layanan">
+                            <div class="circle">
+                                <span class="text"></span>
+                                <span class="icon">
+                                    <i class="fas fa-calendar-check"></i>
+                                </span>
+                            </div>
                             <p>Layanan kesehatan yaitu layanan informasi yang membagikan tentang lokasi, sarana dan prasarana kesehatan dari tingkat desa hingga kabupaten.</p>
                         </div>
                     </div>
                 </div>
-            <div class="col-md-6">
-                <div class="card shadow p-3 mb-5 bg-white rounded">
-                    <div class="form-group">
-                        <ul id="buttons">
-                            <li class="fb">
-                                <a href="#facebook" title="Facebook">
-                                    <i class="fas fa-gavel"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="form-group card-layanan">
-                        <p>Layanan hukum membantu masyarakat untuk mendapatkan informasi tentang peraturan daerah hingga peraturan desa.</p>
+                <div class="col-md-6">
+                    <div class="card shadow p-3 mb-5 bg-white rounded">
+                        <div class="form-group">
+                            <div class="circle">
+                                <span class="text"></span>
+                                <span class="icon">
+                                    <i class="fas fa-calendar-check"></i>
+                                </span>
+                            </div>
+                            <p>Layanan hukum membantu masyarakat untuk mendapatkan informasi tentang peraturan daerah hingga peraturan desa.</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
+
             </div>
         </div>
     </section>
-    
-    <form action="" method="post">
-    <section>
-        <div class="banner-laporan-online">
-            <div class="container">
-                <div class="my-5">
-                    <div class="col-sm">
-                        <div class="form-group text-center">
-                            <h3>LAPORAN ONLINE</h3>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                
+
+    <form action="{{url('cfg_laporan')}}" method="post" autocomplete="off">
+        @csrf
+        <section>
+            <div class="banner-laporan-online">
+                <div class="container">
+                    <div class="my-5">
+                        <div class="col-sm">
+                            <div class="form-group text-center">
+                                <h3>LAPORAN ONLINE</h3>
                             </div>
-                            <div class="col-md-6">
-                                <form action="" name="formlaporan">
-                                    <div class="">
-                                        <div class="form-group">
-                                            <label for="">Nama Lengkap</label>
-                                            <input type="text" name="name" id="name" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="">NIK</label>
-                                            <input type="text" name="nik" id="nik" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="">Telpon</label>
-                                            <input type="text" name="phone" id="phone" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="">Keterangan Laporan</label>
-                                            <textarea cols="30" rows="5" class="form-control" name="laporantxtarea" onKeyUp="Hitung()"></textarea>
-                                            <small>
-                                                <p align='right' id='count'>20 Huruf</p>
-                                            </small>
-                                        </div>
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-primary"> <i class="fas fa-paper-plane"></i> Kirim Laporan</button>
-                                        </div>
+                            <div class="row">
+                                <div class="col-md-3">
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Nama Lengkap</label>
+                                        <input type="text" name="name" id="name" class="form-control">
+                                        <small>
+                                            @error('name')
+                                            {{ $message }}
+                                            @enderror
+                                        </small>
                                     </div>
-                                </form>
-                            </div>
-                            <div class="col-md-3">
-                                
+                                    <div class="form-group">
+                                        <label for="">NIK</label>
+                                        <input type="text" name="nik" id="nik" class="form-control">
+                                        <small>
+                                            @error('nik')
+                                            {{ $message }}
+                                            @enderror
+                                        </small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Telpon</label>
+                                        <input type="text" name="phone" id="phone" class="form-control">
+                                        <small>
+                                            @error('phone')
+                                            {{ $message }}
+                                            @enderror
+                                        </small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Keterangan Laporan</label>
+                                        <textarea cols="30" rows="5" class="form-control" name="report"></textarea>
+                                        <small>
+                                            @error('report')
+                                            {{ $message }}
+                                            @enderror
+                                        </small>
+                                    </div>
+                                    <div class="form-group pt-3">
+                                        <button type="submit" class="btn btn-primary"> <i class="fas fa-paper-plane"></i> Kirim Laporan</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
     </form>
     <section>
         <div class="banner-selection">
@@ -472,11 +454,11 @@
                 </div>
             </div>
         </div>
-    </section> 
+    </section>
 
     <section>
         <div id="map-container-3" class="z-depth-1" style="height: 300px"></div>
-    </section> 
+    </section>
 
     <section>
         <div class="banner-footer">
@@ -484,7 +466,7 @@
                 <div class="row my-5">
                     <div class="col-md-4">
                         <h7 class="uppercase">Tentang desa moronge</h7>
-                        <p class="pt-4">Desa moronge bagian dari kabupaten kepulauan talaud. Moronge adalah sebuah kecamatan di Kabupaten Kepulauan Talaud, Sulawesi Utara, Indonesia.</p>
+                        <p class="pt-4 cap">Desa moronge bagian dari kabupaten kepulauan talaud. Moronge adalah sebuah kecamatan di Kabupaten Kepulauan Talaud, Sulawesi Utara, Indonesia.</p>
                     </div>
                     <div class="col-md-4">
                         <h7 class="uppercase">Berlangganan email</h7>
@@ -502,7 +484,26 @@
                         </form>
                     </div>
                     <div class="col-md-4">
-                        <h7 class="uppercase">Media sosial desa</h7>
+                        <h7 class="uppercase pl-2">Hubungi Kami</h7>
+                        <div class="form-group pt-2 cap">
+                            Hubungi kontak yang terdapat dibawah untuk melaporakan masalah desa moronge.
+                            <br>
+                            <div>
+                                Ibu Mira : +6282217797027
+                            </div>
+                            <div>
+                                Pak Putrus : +62223321352
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+
+                    </div>
+                    <div class="col-md-4">
+
+                    </div>
+                    <div class="col-md-4">
+                        <h7 class="uppercase pl-2">Media sosial desa</h7>
                         <div class="form-group pt-3">
                             <table>
                                 <tr>
@@ -517,198 +518,6 @@
             </div>
         </div>
     </section>
-
-    <script>
-        function mOver(obj) {
-            obj.innerHTML = "Thank You"
-        }
-
-        function mOut(obj) {
-            obj.innerHTML = "Mouse Over Me"
-        }
-
-        // Satellite map
-        function satellite_map() {
-            var var_location = new google.maps.LatLng(48.856847, 2.296832);
-
-            var var_mapoptions = {
-                center: var_location,
-                zoom: 16,
-                mapTypeId: "satellite"
-            };
-
-            var var_map = new google.maps.Map(
-                document.getElementById("map-container-3"),
-                var_mapoptions
-            );
-
-            var var_marker = new google.maps.Marker({
-                position: var_location,
-                map: var_map,
-                title: "Paris, France"
-            });
-        }
-
-        // Regular map
-        function regular_map() {
-            var var_location = new google.maps.LatLng(40.725118, -73.997699);
-
-            var var_mapoptions = {
-                center: var_location,
-                zoom: 14
-            };
-
-            var var_map = new google.maps.Map(
-                document.getElementById("map-container"),
-                var_mapoptions
-            );
-
-            var var_marker = new google.maps.Marker({
-                position: var_location,
-                map: var_map,
-                title: "New York"
-            });
-        }
-
-        // Custom map
-        function custom_map() {
-            var var_location = new google.maps.LatLng(40.725118, -73.997699);
-
-            var var_mapoptions = {
-                center: var_location,
-                zoom: 14,
-                styles: [{
-                        featureType: "administrative",
-                        elementType: "all",
-                        stylers: [{
-                            visibility: "off"
-                        }]
-                    },
-                    {
-                        featureType: "poi",
-                        elementType: "all",
-                        stylers: [{
-                            visibility: "simplified"
-                        }]
-                    },
-                    {
-                        featureType: "road",
-                        elementType: "all",
-                        stylers: [{
-                            visibility: "simplified"
-                        }]
-                    },
-                    {
-                        featureType: "water",
-                        elementType: "all",
-                        stylers: [{
-                            visibility: "simplified"
-                        }]
-                    },
-                    {
-                        featureType: "transit",
-                        elementType: "all",
-                        stylers: [{
-                            visibility: "simplified"
-                        }]
-                    },
-                    {
-                        featureType: "landscape",
-                        elementType: "all",
-                        stylers: [{
-                            visibility: "simplified"
-                        }]
-                    },
-                    {
-                        featureType: "road.highway",
-                        elementType: "all",
-                        stylers: [{
-                            visibility: "off"
-                        }]
-                    },
-                    {
-                        featureType: "road.local",
-                        elementType: "all",
-                        stylers: [{
-                            visibility: "on"
-                        }]
-                    },
-                    {
-                        featureType: "road.highway",
-                        elementType: "geometry",
-                        stylers: [{
-                            visibility: "on"
-                        }]
-                    },
-                    {
-                        featureType: "road.arterial",
-                        elementType: "all",
-                        stylers: [{
-                            visibility: "off"
-                        }]
-                    },
-                    {
-                        featureType: "water",
-                        elementType: "all",
-                        stylers: [{
-                                color: "#5f94ff"
-                            },
-                            {
-                                lightness: 26
-                            },
-                            {
-                                gamma: 5.86
-                            }
-                        ]
-                    },
-                    {
-                        featureType: "road.highway",
-                        elementType: "all",
-                        stylers: [{
-                                weight: 0.6
-                            },
-                            {
-                                saturation: -85
-                            },
-                            {
-                                lightness: 61
-                            }
-                        ]
-                    },
-                    {
-                        featureType: "landscape",
-                        elementType: "all",
-                        stylers: [{
-                                hue: "#0066ff"
-                            },
-                            {
-                                saturation: 74
-                            },
-                            {
-                                lightness: 100
-                            }
-                        ]
-                    }
-                ]
-            };
-
-            var var_map = new google.maps.Map(
-                document.getElementById("map-container-2"),
-                var_mapoptions
-            );
-
-            var var_marker = new google.maps.Marker({
-                position: var_location,
-                map: var_map,
-                title: "New York"
-            });
-        }
-
-        // Initialize maps
-        google.maps.event.addDomListener(window, "load", satellite_map);
-        google.maps.event.addDomListener(window, "load", regular_map);
-        google.maps.event.addDomListener(window, "load", custom_map);
-    </script>
 </body>
 
 </html>

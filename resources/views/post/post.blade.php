@@ -29,9 +29,9 @@
                             <label for="">Kategori</label>
                             <select class="custom-select" name="category">
                                 <option value="">Pilih Kategori</option>
-                                <option value="Pendidikan">Pendidikan</option>
-                                <option value="Pengembangan">Pengembangan</option>
-                                <option value="Pelatihan">Pelatihan</option>
+                                @foreach($category as $kategori)
+                                <option value="{{$kategori->id}}">{{$kategori->category}}</option>
+                                @endforeach
                             </select>
                             <small>
                                 @error('category')

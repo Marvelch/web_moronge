@@ -166,6 +166,7 @@ return [
          * Package Service Providers...
          */
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
+        ArielMejiaDev\Package\LarapexChartsServiceProvider::class,
 
         /*
          * Application Service Providers...

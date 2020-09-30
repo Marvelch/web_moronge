@@ -8,8 +8,9 @@ use App\Models\Post\PostModel;
 use App\Http\Resources\PostResource;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Category\CategoryModel;
 Use Alert;
-
+use Auth;
 
 class PostController extends Controller
 {
@@ -20,7 +21,9 @@ class PostController extends Controller
      */
     public function index()
     {
-       return view('post.post');
+        $category = CategoryModel::All();
+
+       return view('post.post',['category' => $category]);
     }
 
     /**
@@ -53,26 +56,28 @@ class PostController extends Controller
                 'img.required' => '* Kolom sampul tidak boleh kosong !',
                 'content.required' => '* Kolom isi konten tidak boleh kosong !'
             ]);
-
         
-        $x = new PostModel();
+         $id = Auth::id();
         
-        $x->title = $request->input('title');
-        $x->category = $request->input('category');
-        $x->content = $request->input('content');
+        $posting = new PostModel();
+        
+        $posting->title = $request->input('title');
+        $posting->category = $request->input('category');
+        $posting->content = $request->input('content');
+        $posting->users_id = $id;
 
         if($request->hasfile('img')) {
             $file = $request->file('img');
             $extension = $file->getClientOriginalExtension();
             $filename = time().'.'.$extension;
             $file->move('uploads',$filename);
-            $x->img = $filename;
+            $posting->img = $filename;
         }else{
             return $request;
-            $x->img = '';
+            $posting->img = '';
         }
 
-        $x->save();
+        $posting->save();
         Alert::success('Berhasil', 'Buat Postingan Baru Berhasil.');
 
         return back();

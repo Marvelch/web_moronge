@@ -57,7 +57,7 @@
                             Keuangan
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">Data Keuangan</a>
+                            <a class="dropdown-item" href="{{url('desa')}}">Dana Desa</a>
                             <a class="dropdown-item" href="#">Pengelolaan</a>
                             </div>
                         </li>
@@ -66,17 +66,19 @@
                             Layanan
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item"  href="{{url('postingan')}}">Postingan</a>
+                            <a class="dropdown-item" href="{{url('jadwal')}}">Agenda Desa</a>
                             <a class="dropdown-item" href="#">Laporan</a>
-                            <a class="dropdown-item" href="#">Pembuatan Surat</a>
+                            <!-- <a class="dropdown-item" href="#">Pembuatan Surat</a> -->
                             </div>
                         </li>
                         <li class="nav-item dropdown active">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true">
-                            Blog
+                            Artikel
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="{{url('posting')}}">Buat Postingan</a>
-                            <a class="dropdown-item" href="{{url('postingan')}}">Lihat Postingan</a>
+                            <a class="dropdown-item" href="{{url('posting')}}">Buat Artikel</a>
+                            <a class="dropdown-item">Kumpulan Artikel</a>
                             </div>
                         </li>
                     </ul>
