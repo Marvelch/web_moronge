@@ -5587,7 +5587,11 @@ a.badge-dark.focus {
 
 .alert-primary {
     color: #1b4b72;
-    background-color: #d6e9f8;
+    /* background-color: #7367F0; */
+    background-image: url("/img/alert1.jpg");
+    /* background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center; */
     border-color: #c6e0f5;
 }
 

@@ -669,6 +669,7 @@ div[class*="box"] {
     border-bottom-color: #007499;
 }
 
+/* Custome First Character  */
 .cap {
     text-transform: capitalize;
 }
@@ -720,7 +721,7 @@ div[class*="box"] {
 
 .img-resposive {
     width: 100%;
-    height: 20vw;
+    height: 100%;
     object-fit: cover;
 }
 
@@ -728,4 +729,9 @@ div[class*="box"] {
     width: 100%;
     height: 50vw;
     object-fit: cover;
+}
+
+/* images for design */
+.download-img {
+    width: 100%;
 }

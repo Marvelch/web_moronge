@@ -16,7 +16,31 @@
                     </div>
                 </div>
                 <div class="col-md-12">
-                   
+                   <table class="table table-borderless">
+                        <thead>
+                            <tr>
+                                <th>Dana Desa</th>
+                                <th>Keterangan</th>
+                                <th>File Laporan</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($laporandesa as $laporan)
+                            <tr>
+                                <td>{{$laporan->tentang}}</td>
+                                <td style="width:60%">{{$laporan->keterangan}}</td>
+                                <td><button class="btn btn-info" onclick="window.location.href='{{url('download/'.$laporan->filelaporan)}}'"><i class="fas fa-file-download"></i></button></td>
+                                <td>
+                                    <form action="{{url('desa/'.$laporan->id)}}" method="post">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button class="btn btn-warning"><i class="fas fa-trash-alt"></i></button></td>
+                                    </form>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                   </table>
                 </div>
             </div>
         </div>
@@ -26,7 +50,7 @@
 </div>
 
 <!-- Pop up form input -->
-<form action="{{url('jadwal')}}" method="post">
+<form action="{{url('desa')}}" method="post" enctype="multipart/form-data" autocomplete="off">
     @csrf
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -38,7 +62,21 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <input type="file" name="" id="">
+                    <div class="form-group">
+                        <label for="">Dana Desa</label>
+                        <input type="text" name="tentang" id="" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" name="filelaporan" id="validatedCustomFile">
+                            <label class="custom-file-label" for="validatedCustomFile">Pilih File...</label>
+                            <div class="invalid-feedback">Example invalid custom file feedback</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Katerangan</label>
+                        <textarea name="keterangan" id="" cols="30" rows="10" class="form-control"></textarea>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>

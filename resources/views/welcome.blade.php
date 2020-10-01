@@ -163,7 +163,7 @@
                     <p>Transparansi dana desa merupakan bentuk pengawasan penggunaan dan pengolalaan anggaran pendapatan dan belanja desa, serta sebagai sosialisasi dan wadah penerapan program "Padat Karya". Berikut kami sajikan grafik pendapatan dan belanja desa.</p>
                 </div>
                 <div class="col-md-4 pt-4">
-                    <a class="button" role="button">
+                    <a class="button" role="button" onclick="window.location.href='{{url('cfg_dana')}}'">
                         <span>Selengkapnya</span>
                         <div class="icon">
                             <i class="fas fa-angle-right fa-lg"></i>
@@ -193,15 +193,15 @@
                 <div class="col-sm">
                     <h3 class="my-5 text-center">BERITA</h3>
                     @foreach($postingan as $posting)
-                    <div class="card shadow-sm mb-5 bg-white rounded" style="max-width: 600px;">
+                    <div class="card shadow-sm mb-5 bg-white">
                         <div class="row no-gutters">
-                            <div class="col-md-5" style="background: #868e96;">
+                            <div class="col-md-6" style="background: #868e96;">
                                 <img src="{{asset('uploads/'.$posting->img)}}" class="card-img-top img-resposive" alt="...">
                             </div>
-                            <div class="col-md-7">
+                            <div class="col-md-6">
                                 <div class="card-body">
-                                    <h5 class="card-title uppercase">{{$posting->title}}</h5>
-                                    <p class="card-text white-color">{!! \Illuminate\Support\Str::limit($posting->content, 120) !!}</p>
+                                    <h6 class="card-title uppercase">{{$posting->title}}</h6>
+                                    <p class="card-text white-color">{!! \Illuminate\Support\Str::limit($posting->content, 80) !!}</p>
                                     <div class="btx btn-one  welcome-primary-color" onclick="window.location.href='{{url('cfg_show/'.$posting->id)}}'">
                                         <span>Selengkapnya</span>
                                     </div>
@@ -441,7 +441,7 @@
                                 <p>Sistem Informasi Geospasial (SIG Desa) memuat segala informasi berbasis lokasi. SIG Desa dapat digunakan sebagai alat bantu dalam perumusan kebijakan.</p>
                             </div>
                             <div class="col-md-4">
-                                <a class="button" role="button">
+                                <a class="button" role="button" target="_blank" href="https://www.google.co.id/maps/place/Moronge,+Kabupaten+Kepulauan+Talaud,+Sulawesi+Utara/@3.9133844,126.6765227,11902m/data=!3m2!1e3!4b1!4m5!3m4!1s0x328d25e95a036925:0x80a05ef21717a396!8m2!3d3.9138304!4d126.7118971">
                                     <span>Selengkapnya</span>
                                     <div class="icon">
                                         <i class="fas fa-angle-right fa-lg"></i>

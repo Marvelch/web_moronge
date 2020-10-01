@@ -3,14 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use ArielMejiaDev\LarapexCharts\Facades\LarapexChart;
+
+use Illuminate\Pagination\Paginator;
+use App\Models\User;
+use DB;
+
 use App\Models\Post\PostModel;
 use App\Models\Lapor\LaporModel;
 use App\Models\Jadwal\JadwalModel;
-use App\Models\User;
-use DB;
-use ArielMejiaDev\LarapexCharts\Facades\LarapexChart;
+use App\Models\Danadesa\DanadesaModel;
 use App\Models\Category\CategoryModel;
-use Illuminate\Pagination\Paginator;
+
+
 
 class WelcomeController extends Controller
 {
@@ -150,5 +155,12 @@ class WelcomeController extends Controller
 
 
         return view('allnews',['news' => $news])->with('penulis',$penulis);
+    }
+
+    public function danadesa()
+    {
+        $laporan = DanadesaModel::all();
+
+        return view('dana',['laporan' => $laporan]);
     }
 }

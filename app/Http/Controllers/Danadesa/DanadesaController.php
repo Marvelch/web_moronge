@@ -4,6 +4,12 @@ namespace App\Http\Controllers\Danadesa;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Danadesa\DanadesaModel;
+use Illuminate\Support\Facades\Storage;
+use Auth;
+USE Alert;
+use Symfony\Component\HttpFoundation\Response;
+
 
 class DanadesaController extends Controller
 {
@@ -14,7 +20,9 @@ class DanadesaController extends Controller
      */
     public function index()
     {
-        return view('dana.danadesa');
+        $laporandesa = DanadesaModel::All();
+
+        return view('dana.danadesa',['laporandesa' => $laporandesa]);
     }
 
     /**
@@ -22,7 +30,7 @@ class DanadesaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //
     }
@@ -35,7 +43,28 @@ class DanadesaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'filelaporan' => 'required|mimes:pdf,xlx,csv|max:2048',
+            'tentang' => 'required|max:150',
+            'keterangan' => 'required|max:300'
+        ]);
+
+        $id = Auth::id();
+
+        $pdf = new DanadesaModel();
+
+        $extension = $request->file('filelaporan')->extension();
+        $imgName = date('dmyHis').'.'.$extension;
+        
+        Storage::putFileAs('public/laporan',$request->file('filelaporan'),$imgName);
+
+        $pdf->filelaporan = $imgName;
+        $pdf->tentang = $request->input('tentang');
+        $pdf->keterangan = $request->input('keterangan');
+        $pdf->users_id = $id;
+        $pdf->save();
+
+        return back();
     }
 
     /**
@@ -80,6 +109,23 @@ class DanadesaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $laporan = DanadesaModel::find($id);
+        $laporan->delete();
+
+        Alert::info('Berhasil', 'Laporan Berhasil Dihapus.');
+
+        return back();
     }
+
+    public function getDownload($filename)
+{
+    //PDF file is stored under project/public/download/info.pdf
+    $file= public_path(). "\storage\laporan/".$filename;
+
+    $headers = array(
+              'Content-Type: application/pdf',
+            );
+
+    return response()->download($file, 'Laporan.pdf', $headers);
+}
 }
