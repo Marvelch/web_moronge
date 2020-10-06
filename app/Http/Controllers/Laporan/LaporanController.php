@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Laporan;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 use App\Models\Lapor\LaporModel;
+Use Alert;
+use DB;
 
 class LaporanController extends Controller
 {
@@ -13,11 +16,27 @@ class LaporanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $laporan = LaporModel::all();
+        Paginator::useBootstrap();
+        
+        $laporan = LaporModel::All();
 
-        return view('laporan.laporanonline',['laporan' => $laporan]);
+        $search =  $request->input('q');
+        if($search!=""){
+            $users = LaporModel::where(function ($query) use ($search){
+                $query->where('phone', 'like', '%'.$search.'%')
+                    ->orWhere('nik', 'like', '%'.$search.'%')
+                    ->orWhere('nama', 'like', '%'.$search.'%');
+            })
+            ->paginate(2);
+            $users->appends(['q' => $search]);
+        }
+        else{
+            $users = LaporModel::paginate(2);
+        }
+
+        return view('laporan.laporanonline',['laporan' => $laporan])->with('data',$users);
     }
 
     /**
@@ -73,10 +92,12 @@ class LaporanController extends Controller
     public function update(Request $request, $id)
     {
         $status = $request->input('status_id');
-        $get_laporan = LaporModel::WHERE('id',$id)
-                        ->update('status',$status);
-        
-                        dd($status);
+        LaporModel::Where('id',$id)->update(array('status' => $status));
+                
+        Alert::success('Berhasil', 'Pembuatan Agenda Berhasil.');
+
+            return back();
+        // dd($id);
     }
 
     /**
@@ -89,4 +110,10 @@ class LaporanController extends Controller
     {
         //
     }
+
+    public function search(Request $request)
+    {
+        //
+    }
+
 }

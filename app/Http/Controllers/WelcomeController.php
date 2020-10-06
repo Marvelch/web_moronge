@@ -27,7 +27,7 @@ class WelcomeController extends Controller
     public function index()
     {
         $agendas = JadwalModel::orderby('created_at', 'desc')->take(3)->get();
-        $postingan = PostModel::orderby('created_at', 'desc')->take(3)->get();
+        $postingan = PostModel::orderby('created_at', 'desc')->take(2)->get();
         return view('welcome', ['postingan' => $postingan])->with('agendas',$agendas);
     }
 
@@ -68,6 +68,7 @@ class WelcomeController extends Controller
          $laporan->nik = $request->input('nik');
          $laporan->phone = $request->input('phone');
          $laporan->report = $request->input('report');
+         $laporan->status = "Proses";
 
          $laporan->save();
 
@@ -152,9 +153,11 @@ class WelcomeController extends Controller
                     ->join('post','users.id','=','post.users_id')
                     ->select('name')
                     ->get();
+        
+        // Get Table Category
+        $Category = CategoryModel::All();
 
-
-        return view('allnews',['news' => $news])->with('penulis',$penulis);
+        return view('allnews',['news' => $news])->with('penulis',$penulis)->with('Category',$Category);
     }
 
     public function danadesa()
@@ -162,5 +165,10 @@ class WelcomeController extends Controller
         $laporan = DanadesaModel::all();
 
         return view('dana',['laporan' => $laporan]);
+    }
+
+    public function profile()
+    {
+        return view('profil');
     }
 }
